@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ACORN 坚果国际｜移民计算器与工具</title>
+<style>
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(135deg,#f5f7fb 0%,#eef2f7 100%);
+    color:#1f2937;
+    min-height:100vh;
+  }
+  .container{max-width:980px;margin:0 auto;padding:48px 18px 56px;}
+  .brand{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:22px;}
+  .brand h1{margin:0;color:#d92d20;font-size:28px;font-weight:900;letter-spacing:.6px}
+  .brand p{margin:10px 0 0 0;color:#6b7280;font-size:15px;line-height:1.6}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .section{
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #eef2f7;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    overflow:hidden;
+  }
+  .sectionHead{
+    padding:18px 18px 14px 18px;
+    border-bottom:1px solid #eef2f7;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .sectionHead h2{margin:0;font-size:18px;font-weight:800}
+  .tag{font-size:12px;font-weight:700;border-radius:999px;padding:6px 10px}
+  .tag.pnp{background:#fee2e2;color:#b42318}
+  .tag.ee{background:#e0edff;color:#175cd3}
+  .cards{padding:18px;display:grid;gap:14px}
+  .card{
+    text-decoration:none;
+    color:inherit;
+    border:1px solid #eef2f7;
+    border-radius:14px;
+    padding:16px 16px;
+    transition:all .2s ease;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);border-color:#e5e7eb}
+  .cardTitle{font-size:16px;font-weight:800;margin:0 0 6px 0}
+  .cardDesc{margin:0;color:#6b7280;font-size:13px;line-height:1.6}
+  .pillRow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .pill{
+    font-size:12px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid #e5e7eb;
+    color:#374151;
+    background:#fff;
+    font-weight:650;
+  }
+  footer{margin-top:34px;text-align:center;color:#9ca3af;font-size:13px}
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <h1>ACORN 坚果国际</h1>
+      </div>
+
+    <div class="grid">
+
+      <!-- 省提名 -->
+      <section class="section">
+        <div class="sectionHead">
+          <h2>省提名类别</h2>
+          <span class="tag pnp">PNP</span>
+        </div>
+        <div class="cards">
+          <a class="card" href="https://kevinxiercic.github.io/acorn-bcpnp/" target="_blank" rel="noopener">
+            <div class="cardTitle">BCPNP 打分计算器</div>
+            <p class="cardDesc">BC PNP Skills Immigration 自动评分工具（适合快速评估与出报告）。</p>
+            <div class="pillRow">
+              <span class="pill">BC PNP</span>
+              <span class="pill">Skills Immigration</span>
+              <span class="pill">在线使用</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- EE -->
+      <section class="section">
+        <div class="sectionHead">
+          <h2>Express Entry（EE）</h2>
+          <span class="tag ee">EE</span>
+        </div>
+        <div class="cards">
+
+          <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">
+            <div class="cardTitle">EE 分数计算器（官方）</div>
+            <p class="cardDesc">IRCC 官方 CRS 工具：用于估算入池分数（CRS）。</p>
+            <div class="pillRow">
+              <span class="pill">IRCC 官方</span>
+              <span class="pill">CRS</span>
+            </div>
+          </a>
+
+          <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/rounds-invitations/category-based-selection.html" target="_blank" rel="noopener">
+            <div class="cardTitle">EE 定向清单（官方）</div>
+            <p class="cardDesc">IRCC 官方 Category-based selection：查看定向类别与说明。</p>
+            <div class="pillRow">
+              <span class="pill">IRCC 官方</span>
+              <span class="pill">Category-based</span>
+            </div>
+          </a>
+
+          <a class="card" href="https://kevinxiercic.github.io/acorn-fsw67/" target="_blank" rel="noopener">
+            <div class="cardTitle">FSW 67 分计算器（Acorn）</div>
+            <p class="cardDesc">FSW 六大要素评分工具：用于判断是否达到 67 分门槛。</p>
+            <div class="pillRow">
+              <span class="pill">FSW</span>
+              <span class="pill">67 分门槛</span>
+              <span class="pill">在线使用</span>
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+    </div>
+
+    <footer>© Kevin Xie - RCIC</footer>
+  </div>
+</body>
+</html>
