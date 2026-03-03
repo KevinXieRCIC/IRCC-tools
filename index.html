@@ -62,6 +62,16 @@
     font-weight:650;
   }
   footer{margin-top:34px;text-align:center;color:#9ca3af;font-size:13px}
+  .full{grid-column:1 / -1}
+  .langTools{padding:18px;display:grid;gap:12px}
+  details{border:1px solid #eef2f7;border-radius:14px;background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);padding:14px}
+  summary{cursor:pointer;font-weight:800;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .langTable{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+  .langTable th,.langTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:center}
+  .langTable th{background:#f9fafb;font-weight:800}
+  .note{color:#6b7280;font-size:12px;line-height:1.6;margin-top:2px}
+
 </style>
 </head>
 <body>
@@ -149,6 +159,98 @@
             </div>
           </a>
 
+        </div>
+      </section>
+
+
+      <!-- 语言对照表 -->
+      <section class="section full">
+        <div class="sectionHead">
+          <h2>语言对照表（CLB / NCLC）</h2>
+          <span class="tag ee">LANG</span>
+        </div>
+        <div class="langTools">
+          <div class="note"></div>
+
+          <details>
+            <summary>IELTS General Training → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>8.0</td><td>7.5</td><td>8.5</td><td>7.5</td></tr>
+                <tr><td>9</td><td>7.0</td><td>7.0</td><td>8.0</td><td>7.0</td></tr>
+                <tr><td>8</td><td>6.5</td><td>6.5</td><td>7.5</td><td>6.5</td></tr>
+                <tr><td>7</td><td>6.0</td><td>6.0</td><td>6.0</td><td>6.0</td></tr>
+                <tr><td>6</td><td>5.0</td><td>5.5</td><td>5.5</td><td>5.5</td></tr>
+                <tr><td>5</td><td>4.0</td><td>5.0</td><td>5.0</td><td>5.0</td></tr>
+                <tr><td>4</td><td>3.5</td><td>4.0</td><td>4.5</td><td>4.0</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>CELPIP-General → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr>
+                <tr><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td></tr>
+                <tr><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td></tr>
+                <tr><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr>
+                <tr><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr>
+                <tr><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>PTE Core → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>88–90</td><td>90</td><td>89–90</td><td>89–90</td></tr>
+                <tr><td>9</td><td>78–87</td><td>88–89</td><td>82–88</td><td>84–88</td></tr>
+                <tr><td>8</td><td>69–77</td><td>79–87</td><td>71–81</td><td>76–83</td></tr>
+                <tr><td>7</td><td>60–68</td><td>69–78</td><td>60–70</td><td>68–75</td></tr>
+                <tr><td>6</td><td>51–59</td><td>60–68</td><td>50–59</td><td>59–67</td></tr>
+                <tr><td>5</td><td>42–50</td><td>51–59</td><td>39–49</td><td>51–58</td></tr>
+                <tr><td>4</td><td>33–41</td><td>41–50</td><td>28–38</td><td>42–50</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>TEF Canada（after Dec 10, 2023）→ NCLC</summary>
+            <table class="langTable">
+              <thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>546–699</td><td>558–699</td><td>546–699</td><td>556–699</td></tr>
+                <tr><td>9</td><td>503–545</td><td>512–557</td><td>503–545</td><td>518–555</td></tr>
+                <tr><td>8</td><td>462–502</td><td>472–511</td><td>462–502</td><td>494–517</td></tr>
+                <tr><td>7</td><td>434–461</td><td>428–471</td><td>434–461</td><td>456–493</td></tr>
+                <tr><td>6</td><td>393–433</td><td>379–427</td><td>393–433</td><td>422–455</td></tr>
+                <tr><td>5</td><td>352–392</td><td>330–378</td><td>352–392</td><td>387–421</td></tr>
+                <tr><td>4</td><td>306–351</td><td>268–329</td><td>306–351</td><td>328–386</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>TCF Canada → NCLC</summary>
+            <table class="langTable">
+              <thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>549–699</td><td>16–20</td><td>549–699</td><td>16–20</td></tr>
+                <tr><td>9</td><td>524–548</td><td>14–15</td><td>523–548</td><td>14–15</td></tr>
+                <tr><td>8</td><td>499–523</td><td>12–13</td><td>503–522</td><td>12–13</td></tr>
+                <tr><td>7</td><td>453–498</td><td>10–11</td><td>458–502</td><td>10–11</td></tr>
+                <tr><td>6</td><td>406–452</td><td>7–9</td><td>398–457</td><td>7–9</td></tr>
+                <tr><td>5</td><td>375–405</td><td>6</td><td>369–397</td><td>6</td></tr>
+                <tr><td>4</td><td>342–374</td><td>4–5</td><td>331–368</td><td>4–5</td></tr>
+              </tbody>
+            </table>
+          </details>
         </div>
       </section>
 
