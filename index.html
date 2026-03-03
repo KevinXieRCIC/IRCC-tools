@@ -72,6 +72,24 @@
   .langTable th{background:#f9fafb;font-weight:800}
   .note{color:#6b7280;font-size:12px;line-height:1.6;margin-top:2px}
 
+
+  /* EE latest draw widget */
+  .eeLatest{
+    border:1px solid #eef2f7;
+    border-radius:14px;
+    padding:16px;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  }
+  .eeLatestTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .eeLatestTitle h3{margin:0;font-size:16px;font-weight:900}
+  .eeLatestMeta{color:#6b7280;font-size:12px}
+  .eeLatestTable{width:100%;border-collapse:collapse;font-size:13px}
+  .eeLatestTable th,.eeLatestTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:left}
+  .eeLatestTable th{background:#f9fafb;font-weight:900}
+  .eeErr{margin-top:8px;color:#b42318;font-size:12px;line-height:1.5}
+  .eeLoading{color:#6b7280;font-size:13px}
+
+
 </style>
 </head>
 <body>
@@ -119,6 +137,34 @@
           <h2>Express Entry（EE）</h2>
           <span class="tag ee">EE</span>
         </div>
+
+<!-- EE 最新邀请分数（自动抓取） -->
+          <div class="eeLatest" id="eeLatestWidget" aria-live="polite">
+            <div class="eeLatestTitle">
+              <h3>EE 最新邀请分数（自动更新）</h3>
+              <span class="pill">Auto</span>
+            </div>
+            <div class="eeLoading" id="eeLatestLoading">正在抓取 IRCC 最新数据…</div>
+            <div class="eeErr" id="eeLatestError" style="display:none;"></div>
+
+            <table class="eeLatestTable" id="eeLatestTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>类别</th>
+                  <th>最近一次邀请日期</th>
+                  <th>最低 CRS 分数</th>
+                </tr>
+              </thead>
+              <tbody id="eeLatestTbody"></tbody>
+            </table>
+
+            <div class="eeLatestMeta" id="eeLatestMeta" style="margin-top:8px;">
+              数据来源：IRCC Express Entry rounds（官方）
+            </div>
+          </div>
+
+          
+
         <div class="cards">
 
           <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">
@@ -139,8 +185,7 @@
               <span class="pill">ITA分数</span>
             </div>
           </a>
-          
-          <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/rounds-invitations/category-based-selection.html" target="_blank" rel="noopener">
+                    <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/rounds-invitations/category-based-selection.html" target="_blank" rel="noopener">
             <div class="cardTitle">EE 定向清单（官方）</div>
             <p class="cardDesc">IRCC 官方 Category-based selection：查看定向类别与说明。</p>
             <div class="pillRow">
@@ -258,5 +303,149 @@
 
     <footer>© Kevin Xie - RCIC</footer>
   </div>
+
+<script>
+(function(){
+  const OFFICIAL_ROUNDS_PAGE = "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html";
+
+  // IRCC provides a JSON feed used by their JS table.
+  // Note: the numeric suffix has historically changed occasionally, so we try a small list.
+  const JSON_CANDIDATES = [
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_123_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_122_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_124_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_121_en.json"
+  ];
+
+  // Optional CORS proxy (your worker) — if the browser blocks direct fetch.
+  // If your worker uses another pattern, just adjust proxyFetch() below.
+  const PROXY_BASE = "https://jobbank-proxy.kevin-ytxie.workers.dev/";
+
+  const TARGETS = [
+    { key: "Canadian Experience Class", label: "Canadian Experience Class（CEC）", aliases: ["canadian experience class","cec"] },
+    { key: "French", label: "French-Language proficiency（法语）", aliases: ["french language proficiency","french-language proficiency","french-language","french"] },
+    { key: "Healthcare", label: "Healthcare and social services occupations（医疗/社工）", aliases: ["healthcare and social services occupations","healthcare occupations","healthcare"] },
+    { key: "Education", label: "Education occupations（教育）", aliases: ["education occupations","education"] }
+  ];
+
+  const elLoading = document.getElementById("eeLatestLoading");
+  const elError = document.getElementById("eeLatestError");
+  const elTable = document.getElementById("eeLatestTable");
+  const elTbody = document.getElementById("eeLatestTbody");
+  const elMeta = document.getElementById("eeLatestMeta");
+
+  if(!elLoading || !elError || !elTable || !elTbody || !elMeta) return;
+
+  function showError(msg){
+    elLoading.style.display = "none";
+    elTable.style.display = "none";
+    elError.style.display = "block";
+    elError.textContent = msg;
+    elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a>';
+  }
+
+  function safeText(v){
+    return (v === null || v === undefined) ? "" : String(v);
+  }
+
+  function normalize(s){
+    return safeText(s).toLowerCase().replace(/\s+/g," ").trim();
+  }
+
+  function parseDateKey(d){
+    // expects YYYY-MM-DD
+    const m = safeText(d).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return 0;
+    return Number(m[1]+m[2]+m[3]);
+  }
+
+  async function directFetch(url){
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  }
+
+  async function proxyFetch(url){
+    // Common "proxy" patterns:
+    // 1) /?url=<encoded>
+    // 2) /proxy?url=<encoded>
+    // We'll try both.
+    const u1 = PROXY_BASE + "?url=" + encodeURIComponent(url);
+    try {
+      return await directFetch(u1);
+    } catch(e){
+      const u2 = PROXY_BASE.replace(/\/$/,"") + "/proxy?url=" + encodeURIComponent(url);
+      return await directFetch(u2);
+    }
+  }
+
+  async function fetchJsonWithFallback(){
+    let lastErr = null;
+
+    for(const url of JSON_CANDIDATES){
+      try { return await directFetch(url); } catch(e){ lastErr = e; }
+      try { return await proxyFetch(url); } catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("Unable to fetch JSON");
+  }
+
+  function pickLatest(rounds, target){
+    const candidates = [];
+    for(const r of rounds){
+      const name = normalize(r.drawName || r.roundType || r.round_name);
+      const date = safeText(r.drawDate || r.date || r.draw_date);
+      const crs = r.drawCRS ?? r.drawCutOff ?? r.crs ?? r.draw_cutoff;
+
+      const matches = target.aliases.some(a => name.includes(normalize(a)));
+      if(matches && date){
+        candidates.push({ date, crs: safeText(crs), raw: r });
+      }
+    }
+    candidates.sort((a,b)=>parseDateKey(b.date)-parseDateKey(a.date));
+    return candidates[0] || null;
+  }
+
+  function render(rows){
+    elLoading.style.display = "none";
+    elError.style.display = "none";
+    elTable.style.display = "table";
+
+    elTbody.innerHTML = rows.map(r => {
+      const date = r ? safeText(r.date) : "-";
+      const crs = r ? (safeText(r.crs) || "-") : "-";
+      const label = r ? r.label : "-";
+      return "<tr><td>"+label+"</td><td>"+date+"</td><td>"+crs+"</td></tr>";
+    }).join("");
+
+    const now = new Date();
+    const stamp = now.toLocaleString("zh-CN", { hour12:false });
+    elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a> · 更新于 ' + stamp;
+  }
+
+  async function init(){
+    try{
+      const data = await fetchJsonWithFallback();
+      const rounds = Array.isArray(data.rounds) ? data.rounds : (Array.isArray(data) ? data : []);
+      if(!rounds.length) throw new Error("JSON does not contain rounds[]");
+
+      const rows = TARGETS.map(t => {
+        const latest = pickLatest(rounds, t);
+        return latest ? { label: t.label, date: latest.date, crs: latest.crs } : { label: t.label, date: "-", crs: "-" };
+      });
+
+      render(rows);
+    } catch(err){
+      showError("抓取失败：浏览器可能拦截了跨域请求（CORS），或 IRCC 更新了数据地址。你可以把 IRCC JSON 地址转发到你的 worker 并开启 CORS 解决。错误信息：" + (err && err.message ? err.message : String(err)));
+    }
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
+})();
+</script>
+
 </body>
 </html>
