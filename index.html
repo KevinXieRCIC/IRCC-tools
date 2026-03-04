@@ -1,528 +1,451 @@
 
-<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><title>ACORN 坚果国际｜移民计算器与工具</title><style>
- body{
- margin:0;
- font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
- background:linear-gradient(135deg,#f5f7fb 0%,#eef2f7 100%);
- color:#1f2937;
- min-height:100vh;
- }
- .container{max-width:980px;margin:0 auto;padding:48px 18px 56px;}
- .brand{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:22px;}
- .brand h1{margin:0;color:#d92d20;font-size:28px;font-weight:900;letter-spacing:.6px}
- .brand p{margin:10px 0 0 0;color:#6b7280;font-size:15px;line-height:1.6}
- .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;}
- @media(max-width:900px){.grid{grid-template-columns:1fr}}
- .section{
- background:#fff;
- border-radius:18px;
- border:1px solid #eef2f7;
- box-shadow:0 10px 30px rgba(0,0,0,.08);
- overflow:hidden;
- }
- .sectionHead{
- padding:18px 18px 14px 18px;
- border-bottom:1px solid #eef2f7;
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:12px;
- }
- .sectionHead h2{margin:0;font-size:18px;font-weight:800}
- .tag{font-size:12px;font-weight:700;border-radius:999px;padding:6px 10px}
- .tag.pnp{background:#fee2e2;color:#b42318}
- .tag.ee{background:#e0edff;color:#175cd3}
- .cards{padding:18px;display:grid;gap:14px}
- .card{
- text-decoration:none;
- color:inherit;
- border:1px solid #eef2f7;
- border-radius:14px;
- padding:16px 16px;
- transition:all .2s ease;
- background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
- }
- .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);border-color:#e5e7eb}
- .cardTitle{font-size:16px;font-weight:800;margin:0 0 6px 0}
- .cardDesc{margin:0;color:#6b7280;font-size:13px;line-height:1.6}
- .pillRow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
- .pill{
- font-size:12px;
- padding:6px 10px;
- border-radius:999px;
- border:1px solid #e5e7eb;
- color:#374151;
- background:#fff;
- font-weight:650;
- }
- footer{margin-top:34px;text-align:center;color:#9ca3af;font-size:13px}
- .full{grid-column:1 / -1}
- .langTools{padding:18px;display:grid;gap:12px}
- details{border:1px solid #eef2f7;border-radius:14px;background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);padding:14px}
- summary{cursor:pointer;font-weight:800;list-style:none}
- summary::-webkit-details-marker{display:none}
- .langTable{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
- .langTable th,.langTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:center}
- .langTable th{background:#f9fafb;font-weight:800}
- .note{color:#6b7280;font-size:12px;line-height:1.6;margin-top:2px}
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>ACORN 坚果国际｜移民计算器与工具</title>
+<style>
+  body{
+    margin:0;
+    font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+    background:linear-gradient(135deg,#f5f7fb 0%,#eef2f7 100%);
+    color:#1f2937;
+    min-height:100vh;
+  }
+  .container{max-width:980px;margin:0 auto;padding:48px 18px 56px;}
+  .brand{display:flex;flex-direction:column;align-items:center;text-align:center;margin-bottom:22px;}
+  .brand h1{margin:0;color:#d92d20;font-size:28px;font-weight:900;letter-spacing:.6px}
+  .brand p{margin:10px 0 0 0;color:#6b7280;font-size:15px;line-height:1.6}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:26px;}
+  @media(max-width:900px){.grid{grid-template-columns:1fr}}
+  .section{
+    background:#fff;
+    border-radius:18px;
+    border:1px solid #eef2f7;
+    box-shadow:0 10px 30px rgba(0,0,0,.08);
+    overflow:hidden;
+  }
+  .sectionHead{
+    padding:18px 18px 14px 18px;
+    border-bottom:1px solid #eef2f7;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+  }
+  .sectionHead h2{margin:0;font-size:18px;font-weight:800}
+  .tag{font-size:12px;font-weight:700;border-radius:999px;padding:6px 10px}
+  .tag.pnp{background:#fee2e2;color:#b42318}
+  .tag.ee{background:#e0edff;color:#175cd3}
+  .cards{padding:18px;display:grid;gap:14px}
+  .card{
+    text-decoration:none;
+    color:inherit;
+    border:1px solid #eef2f7;
+    border-radius:14px;
+    padding:16px 16px;
+    transition:all .2s ease;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(0,0,0,.10);border-color:#e5e7eb}
+  .cardTitle{font-size:16px;font-weight:800;margin:0 0 6px 0}
+  .cardDesc{margin:0;color:#6b7280;font-size:13px;line-height:1.6}
+  .pillRow{margin-top:10px;display:flex;gap:8px;flex-wrap:wrap}
+  .pill{
+    font-size:12px;
+    padding:6px 10px;
+    border-radius:999px;
+    border:1px solid #e5e7eb;
+    color:#374151;
+    background:#fff;
+    font-weight:650;
+  }
+  footer{margin-top:34px;text-align:center;color:#9ca3af;font-size:13px}
+  .full{grid-column:1 / -1}
+  .langTools{padding:18px;display:grid;gap:12px}
+  details{border:1px solid #eef2f7;border-radius:14px;background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);padding:14px}
+  summary{cursor:pointer;font-weight:800;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  .langTable{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
+  .langTable th,.langTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:center}
+  .langTable th{background:#f9fafb;font-weight:800}
+  .note{color:#6b7280;font-size:12px;line-height:1.6;margin-top:2px}
 
 
- /* EE latest draw widget */
- .eeLatest{
- border:1px solid #eef2f7;
- border-radius:14px;
- padding:16px;
- background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
- }
- .eeLatestTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
- .eeLatestTitle h3{margin:0;font-size:16px;font-weight:900}
- .eeLatestMeta{color:#6b7280;font-size:12px}
- .eeLatestTable{width:100%;border-collapse:collapse;font-size:13px}
- .eeLatestTable th,.eeLatestTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:left}
- .eeLatestTable th{background:#f9fafb;font-weight:900}
- .eeErr{margin-top:8px;color:#b42318;font-size:12px;line-height:1.5}
- .eeLoading{color:#6b7280;font-size:13px}
+  /* EE latest draw widget */
+  .eeLatest{
+    border:1px solid #eef2f7;
+    border-radius:14px;
+    padding:16px;
+    background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
+  }
+  .eeLatestTitle{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+  .eeLatestTitle h3{margin:0;font-size:16px;font-weight:900}
+  .eeLatestMeta{color:#6b7280;font-size:12px}
+  .eeLatestTable{width:100%;border-collapse:collapse;font-size:13px}
+  .eeLatestTable th,.eeLatestTable td{border:1px solid #eef2f7;padding:8px 10px;text-align:left}
+  .eeLatestTable th{background:#f9fafb;font-weight:900}
+  .eeErr{margin-top:8px;color:#b42318;font-size:12px;line-height:1.5}
+  .eeLoading{color:#6b7280;font-size:13px}
 
 
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="brand">
+      <h1>ACORN 坚果国际</h1>
+      </div>
 
- /* EE history chart popover */
- .eeCatBtn{
- cursor:pointer;
- font-weight:900;
- color:#175cd3;
- text-decoration:underline;
- text-underline-offset:3px;
- }
- .eeCatBtn:focus{outline:2px solid rgba(23,92,211,.25); outline-offset:2px; border-radius:6px}
- .eeChartPopover{
- position:fixed;
- z-index:9999;
- width:360px;
- max-width:calc(100vw - 24px);
- background:#ffffff;
- border:1px solid #eef2f7;
- border-radius:14px;
- box-shadow:0 18px 50px rgba(0,0,0,.18);
- padding:12px 12px 10px 12px;
- display:none;
- }
- .eeChartHead{
- display:flex;
- align-items:center;
- justify-content:space-between;
- gap:10px;
- margin-bottom:6px;
- }
- .eeChartHead .title{
- font-size:13px;
- font-weight:900;
- color:#111827;
- line-height:1.3;
- }
- .eeChartHead .subtitle{
- font-size:12px;
- color:#6b7280;
- line-height:1.3;
- margin-top:2px;
- }
- .eeChartClose{
- cursor:pointer;
- border:1px solid #eef2f7;
- background:#fff;
- border-radius:10px;
- padding:6px 8px;
- font-weight:900;
- color:#374151;
- }
- .eeChartCanvasWrap{
- border:1px solid #eef2f7;
- border-radius:12px;
- background:linear-gradient(180deg,#ffffff 0%,#fbfcff 100%);
- padding:8px;
- }
- .eeChartHint{margin-top:6px;color:#6b7280;font-size:11px;line-height:1.45}
+    <div class="grid">
 
-</style></head><body><div class="container"><div class="brand"><h1>ACORN 坚果国际</h1></div><div class="grid"><!-- 省提名 --><section class="section"><div class="sectionHead"><h2>省提名类别</h2><span class="tag pnp">PNP</span></div><div class="cards"><a class="card" href="https://kevinxiercic.github.io/acorn-bcpnp/" target="_blank" rel="noopener"><div class="cardTitle">BCPNP 打分计算器（Acorn）</div><p class="cardDesc">BC PNP Skills Immigration 自动评分工具。</p><div class="pillRow"><span class="pill">BC PNP</span><span class="pill">Skills Immigration</span></div></a><a class="card" href="https://kevinxiercic.github.io/acorn-oinp/" target="_blank" rel="noopener"><div class="cardTitle">OINP 打分计算器（Acorn）</div><p class="cardDesc">OINP Foreign Worker/International Student 自动评分工具。</p><div class="pillRow"><span class="pill">OINP</span><span class="pill">Foreign Worker</span><span class="pill">International Student</span></div></a></div></section><!-- EE --><section class="section"><div class="sectionHead"><h2>Express Entry（EE）</h2><span class="tag ee">EE</span></div><!-- EE 最新邀请分数（自动抓取） --><div class="eeLatest" id="eeLatestWidget" aria-live="polite"><div class="eeLatestTitle"><h3>EE 最新邀请分数（自动更新）</h3><span class="pill">Auto</span></div><div class="eeLoading" id="eeLatestLoading">正在抓取 IRCC 最新数据…</div><div class="eeErr" id="eeLatestError" style="display:none;"></div><table class="eeLatestTable" id="eeLatestTable" style="display:none;"><thead><tr><th>类别</th><th>最近一次邀请日期</th><th>最低 CRS 分数</th></tr></thead><tbody id="eeLatestTbody"></tbody></table><div class="eeLatestMeta" id="eeLatestMeta" style="margin-top:8px;">
- 数据来源：IRCC Express Entry rounds（官方）
- </div></div><div class="cards"><a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener"><div class="cardTitle">EE 分数计算器（官方）</div><p class="cardDesc">IRCC 官方 CRS 工具：用于估算入池分数（CRS）。</p><div class="pillRow"><span class="pill">IRCC 官方</span><span class="pill">CRS</span></div></a><a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html" target="_blank" rel="noopener"><div class="cardTitle">EE 历史分数（官方）</div><p class="cardDesc">EE通道历史邀请分数总览 </p><div class="pillRow"><span class="pill">IRCC 官方</span><span class="pill">ITA分数</span></div></a><a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/rounds-invitations/category-based-selection.html" target="_blank" rel="noopener"><div class="cardTitle">EE 定向清单（官方）</div><p class="cardDesc">IRCC 官方 Category-based selection：查看定向类别与说明。</p><div class="pillRow"><span class="pill">IRCC 官方</span><span class="pill">Category-based</span></div></a><a class="card" href="https://kevinxiercic.github.io/acorn-fsw67/" target="_blank" rel="noopener"><div class="cardTitle">FSW 67 分计算器（Acorn）</div><p class="cardDesc">FSW 六大要素评分工具：用于判断是否达到 67 分门槛。</p><div class="pillRow"><span class="pill">FSW</span><span class="pill">67 分门槛</span></div></a></div></section><!-- 语言对照表 --><section class="section full"><div class="sectionHead"><h2>语言对照表（CLB / NCLC）</h2><span class="tag ee">LANG</span></div><div class="langTools"><div class="note"></div><details><summary>IELTS General Training → CLB</summary><table class="langTable"><thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead><tbody><tr><td>10</td><td>8.0</td><td>7.5</td><td>8.5</td><td>7.5</td></tr><tr><td>9</td><td>7.0</td><td>7.0</td><td>8.0</td><td>7.0</td></tr><tr><td>8</td><td>6.5</td><td>6.5</td><td>7.5</td><td>6.5</td></tr><tr><td>7</td><td>6.0</td><td>6.0</td><td>6.0</td><td>6.0</td></tr><tr><td>6</td><td>5.0</td><td>5.5</td><td>5.5</td><td>5.5</td></tr><tr><td>5</td><td>4.0</td><td>5.0</td><td>5.0</td><td>5.0</td></tr><tr><td>4</td><td>3.5</td><td>4.0</td><td>4.5</td><td>4.0</td></tr></tbody></table></details><details><summary>CELPIP-General → CLB</summary><table class="langTable"><thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead><tbody><tr><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr><tr><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td></tr><tr><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td></tr><tr><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr><tr><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr><tr><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr><tr><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr></tbody></table></details><details><summary>PTE Core → CLB</summary><table class="langTable"><thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead><tbody><tr><td>10</td><td>88–90</td><td>90</td><td>89–90</td><td>89–90</td></tr><tr><td>9</td><td>78–87</td><td>88–89</td><td>82–88</td><td>84–88</td></tr><tr><td>8</td><td>69–77</td><td>79–87</td><td>71–81</td><td>76–83</td></tr><tr><td>7</td><td>60–68</td><td>69–78</td><td>60–70</td><td>68–75</td></tr><tr><td>6</td><td>51–59</td><td>60–68</td><td>50–59</td><td>59–67</td></tr><tr><td>5</td><td>42–50</td><td>51–59</td><td>39–49</td><td>51–58</td></tr><tr><td>4</td><td>33–41</td><td>41–50</td><td>28–38</td><td>42–50</td></tr></tbody></table></details><details><summary>TEF Canada（after Dec 10, 2023）→ NCLC</summary><table class="langTable"><thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead><tbody><tr><td>10</td><td>546–699</td><td>558–699</td><td>546–699</td><td>556–699</td></tr><tr><td>9</td><td>503–545</td><td>512–557</td><td>503–545</td><td>518–555</td></tr><tr><td>8</td><td>462–502</td><td>472–511</td><td>462–502</td><td>494–517</td></tr><tr><td>7</td><td>434–461</td><td>428–471</td><td>434–461</td><td>456–493</td></tr><tr><td>6</td><td>393–433</td><td>379–427</td><td>393–433</td><td>422–455</td></tr><tr><td>5</td><td>352–392</td><td>330–378</td><td>352–392</td><td>387–421</td></tr><tr><td>4</td><td>306–351</td><td>268–329</td><td>306–351</td><td>328–386</td></tr></tbody></table></details><details><summary>TCF Canada → NCLC</summary><table class="langTable"><thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead><tbody><tr><td>10</td><td>549–699</td><td>16–20</td><td>549–699</td><td>16–20</td></tr><tr><td>9</td><td>524–548</td><td>14–15</td><td>523–548</td><td>14–15</td></tr><tr><td>8</td><td>499–523</td><td>12–13</td><td>503–522</td><td>12–13</td></tr><tr><td>7</td><td>453–498</td><td>10–11</td><td>458–502</td><td>10–11</td></tr><tr><td>6</td><td>406–452</td><td>7–9</td><td>398–457</td><td>7–9</td></tr><tr><td>5</td><td>375–405</td><td>6</td><td>369–397</td><td>6</td></tr><tr><td>4</td><td>342–374</td><td>4–5</td><td>331–368</td><td>4–5</td></tr></tbody></table></details></div></section></div><footer>© Kevin Xie - RCIC</footer></div><!-- EE history chart popover --><div id="eeChartPopover" class="eeChartPopover" role="dialog" aria-hidden="true" aria-label="EE 历史邀请分数"><div class="eeChartHead"><div><div id="eeChartTitle" class="title">历史分数</div><div class="subtitle"></div></div><button id="eeChartClose" class="eeChartClose" type="button" aria-label="关闭">×</button></div><div class="eeChartCanvasWrap"><canvas id="eeChartCanvas" width="336" height="180"></canvas></div><div class="eeChartHint"></div></div><script>
+      <!-- 省提名 -->
+      <section class="section">
+        <div class="sectionHead">
+          <h2>省提名类别</h2>
+          <span class="tag pnp">PNP</span>
+        </div>
+        <div class="cards">
+          <a class="card" href="https://kevinxiercic.github.io/acorn-bcpnp/" target="_blank" rel="noopener">
+            <div class="cardTitle">BCPNP 打分计算器（Acorn）</div>
+            <p class="cardDesc">BC PNP Skills Immigration 自动评分工具。</p>
+            <div class="pillRow">
+              <span class="pill">BC PNP</span>
+              <span class="pill">Skills Immigration</span>
+              
+            </div>
+          </a>
+
+
+          <a class="card" href="https://kevinxiercic.github.io/acorn-oinp/" target="_blank" rel="noopener">
+            <div class="cardTitle">OINP 打分计算器（Acorn）</div>
+            <p class="cardDesc">OINP Foreign Worker/International Student 自动评分工具。</p>
+            <div class="pillRow">
+              <span class="pill">OINP</span>
+              <span class="pill">Foreign Worker</span>
+              <span class="pill">International Student</span>
+            </div>
+          </a>
+          
+        </div>
+      </section>
+
+      <!-- EE -->
+      <section class="section">
+        <div class="sectionHead">
+          <h2>Express Entry（EE）</h2>
+          <span class="tag ee">EE</span>
+        </div>
+
+<!-- EE 最新邀请分数（自动抓取） -->
+          <div class="eeLatest" id="eeLatestWidget" aria-live="polite">
+            <div class="eeLatestTitle">
+              <h3>EE 最新邀请分数（自动更新）</h3>
+              <span class="pill">Auto</span>
+            </div>
+            <div class="eeLoading" id="eeLatestLoading">正在抓取 IRCC 最新数据…</div>
+            <div class="eeErr" id="eeLatestError" style="display:none;"></div>
+
+            <table class="eeLatestTable" id="eeLatestTable" style="display:none;">
+              <thead>
+                <tr>
+                  <th>类别</th>
+                  <th>最近一次邀请日期</th>
+                  <th>最低 CRS 分数</th>
+                </tr>
+              </thead>
+              <tbody id="eeLatestTbody"></tbody>
+            </table>
+
+            <div class="eeLatestMeta" id="eeLatestMeta" style="margin-top:8px;">
+              数据来源：IRCC Express Entry rounds（官方）
+            </div>
+          </div>
+
+          
+
+        <div class="cards">
+
+          <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/check-score.html" target="_blank" rel="noopener">
+            <div class="cardTitle">EE 分数计算器（官方）</div>
+            <p class="cardDesc">IRCC 官方 CRS 工具：用于估算入池分数（CRS）。</p>
+            <div class="pillRow">
+              <span class="pill">IRCC 官方</span>
+              <span class="pill">CRS</span>
+            </div>
+          </a>
+
+
+          <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html" target="_blank" rel="noopener">
+            <div class="cardTitle">EE 历史分数（官方）</div>
+            <p class="cardDesc">EE通道历史邀请分数总览 </p>
+            <div class="pillRow">
+              <span class="pill">IRCC 官方</span>
+              <span class="pill">ITA分数</span>
+            </div>
+          </a>
+                    <a class="card" href="https://www.canada.ca/en/immigration-refugees-citizenship/services/immigrate-canada/express-entry/rounds-invitations/category-based-selection.html" target="_blank" rel="noopener">
+            <div class="cardTitle">EE 定向清单（官方）</div>
+            <p class="cardDesc">IRCC 官方 Category-based selection：查看定向类别与说明。</p>
+            <div class="pillRow">
+              <span class="pill">IRCC 官方</span>
+              <span class="pill">Category-based</span>
+            </div>
+          </a>
+
+          <a class="card" href="https://kevinxiercic.github.io/acorn-fsw67/" target="_blank" rel="noopener">
+            <div class="cardTitle">FSW 67 分计算器（Acorn）</div>
+            <p class="cardDesc">FSW 六大要素评分工具：用于判断是否达到 67 分门槛。</p>
+            <div class="pillRow">
+              <span class="pill">FSW</span>
+              <span class="pill">67 分门槛</span>
+              
+            </div>
+          </a>
+
+        </div>
+      </section>
+
+
+      <!-- 语言对照表 -->
+      <section class="section full">
+        <div class="sectionHead">
+          <h2>语言对照表（CLB / NCLC）</h2>
+          <span class="tag ee">LANG</span>
+        </div>
+        <div class="langTools">
+          <div class="note"></div>
+
+          <details>
+            <summary>IELTS General Training → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>8.0</td><td>7.5</td><td>8.5</td><td>7.5</td></tr>
+                <tr><td>9</td><td>7.0</td><td>7.0</td><td>8.0</td><td>7.0</td></tr>
+                <tr><td>8</td><td>6.5</td><td>6.5</td><td>7.5</td><td>6.5</td></tr>
+                <tr><td>7</td><td>6.0</td><td>6.0</td><td>6.0</td><td>6.0</td></tr>
+                <tr><td>6</td><td>5.0</td><td>5.5</td><td>5.5</td><td>5.5</td></tr>
+                <tr><td>5</td><td>4.0</td><td>5.0</td><td>5.0</td><td>5.0</td></tr>
+                <tr><td>4</td><td>3.5</td><td>4.0</td><td>4.5</td><td>4.0</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>CELPIP-General → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>10</td><td>10</td><td>10</td><td>10</td></tr>
+                <tr><td>9</td><td>9</td><td>9</td><td>9</td><td>9</td></tr>
+                <tr><td>8</td><td>8</td><td>8</td><td>8</td><td>8</td></tr>
+                <tr><td>7</td><td>7</td><td>7</td><td>7</td><td>7</td></tr>
+                <tr><td>6</td><td>6</td><td>6</td><td>6</td><td>6</td></tr>
+                <tr><td>5</td><td>5</td><td>5</td><td>5</td><td>5</td></tr>
+                <tr><td>4</td><td>4</td><td>4</td><td>4</td><td>4</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>PTE Core → CLB</summary>
+            <table class="langTable">
+              <thead><tr><th>CLB</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>88–90</td><td>90</td><td>89–90</td><td>89–90</td></tr>
+                <tr><td>9</td><td>78–87</td><td>88–89</td><td>82–88</td><td>84–88</td></tr>
+                <tr><td>8</td><td>69–77</td><td>79–87</td><td>71–81</td><td>76–83</td></tr>
+                <tr><td>7</td><td>60–68</td><td>69–78</td><td>60–70</td><td>68–75</td></tr>
+                <tr><td>6</td><td>51–59</td><td>60–68</td><td>50–59</td><td>59–67</td></tr>
+                <tr><td>5</td><td>42–50</td><td>51–59</td><td>39–49</td><td>51–58</td></tr>
+                <tr><td>4</td><td>33–41</td><td>41–50</td><td>28–38</td><td>42–50</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>TEF Canada（after Dec 10, 2023）→ NCLC</summary>
+            <table class="langTable">
+              <thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>546–699</td><td>558–699</td><td>546–699</td><td>556–699</td></tr>
+                <tr><td>9</td><td>503–545</td><td>512–557</td><td>503–545</td><td>518–555</td></tr>
+                <tr><td>8</td><td>462–502</td><td>472–511</td><td>462–502</td><td>494–517</td></tr>
+                <tr><td>7</td><td>434–461</td><td>428–471</td><td>434–461</td><td>456–493</td></tr>
+                <tr><td>6</td><td>393–433</td><td>379–427</td><td>393–433</td><td>422–455</td></tr>
+                <tr><td>5</td><td>352–392</td><td>330–378</td><td>352–392</td><td>387–421</td></tr>
+                <tr><td>4</td><td>306–351</td><td>268–329</td><td>306–351</td><td>328–386</td></tr>
+              </tbody>
+            </table>
+          </details>
+
+          <details>
+            <summary>TCF Canada → NCLC</summary>
+            <table class="langTable">
+              <thead><tr><th>NCLC</th><th>R</th><th>W</th><th>L</th><th>S</th></tr></thead>
+              <tbody>
+                <tr><td>10</td><td>549–699</td><td>16–20</td><td>549–699</td><td>16–20</td></tr>
+                <tr><td>9</td><td>524–548</td><td>14–15</td><td>523–548</td><td>14–15</td></tr>
+                <tr><td>8</td><td>499–523</td><td>12–13</td><td>503–522</td><td>12–13</td></tr>
+                <tr><td>7</td><td>453–498</td><td>10–11</td><td>458–502</td><td>10–11</td></tr>
+                <tr><td>6</td><td>406–452</td><td>7–9</td><td>398–457</td><td>7–9</td></tr>
+                <tr><td>5</td><td>375–405</td><td>6</td><td>369–397</td><td>6</td></tr>
+                <tr><td>4</td><td>342–374</td><td>4–5</td><td>331–368</td><td>4–5</td></tr>
+              </tbody>
+            </table>
+          </details>
+        </div>
+      </section>
+
+    </div>
+
+    <footer>© Kevin Xie - RCIC</footer>
+  </div>
+
+<script>
 (function(){
- const OFFICIAL_ROUNDS_PAGE = "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html";
+  const OFFICIAL_ROUNDS_PAGE = "https://www.canada.ca/en/immigration-refugees-citizenship/corporate/mandate/policies-operational-instructions-agreements/ministerial-instructions/express-entry-rounds.html";
 
- // IRCC provides a JSON feed used by their JS table.
- // Note: the numeric suffix has historically changed occasionally, so we try a small list.
- const JSON_CANDIDATES = [
- "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_123_en.json",
- "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_122_en.json",
- "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_124_en.json",
- "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_121_en.json"
- ];
+  // IRCC provides a JSON feed used by their JS table.
+  // Note: the numeric suffix has historically changed occasionally, so we try a small list.
+  const JSON_CANDIDATES = [
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_123_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_122_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_124_en.json",
+    "https://www.canada.ca/content/dam/ircc/documents/json/ee_rounds_121_en.json"
+  ];
 
- // Optional CORS proxy (your worker) — if the browser blocks direct fetch.
- // If your worker uses another pattern, just adjust proxyFetch() below.
- const PROXY_BASE = "https://jobbank-proxy.kevin-ytxie.workers.dev/";
+  // Optional CORS proxy (your worker) — if the browser blocks direct fetch.
+  // If your worker uses another pattern, just adjust proxyFetch() below.
+  const PROXY_BASE = "https://jobbank-proxy.kevin-ytxie.workers.dev/";
 
- const TARGETS = [
- { key: "Canadian Experience Class", label: "Canadian Experience Class（CEC）", aliases: ["canadian experience class","cec"] },
- { key: "French", label: "French-Language proficiency（法语）", aliases: ["french language proficiency","french-language proficiency","french-language","french"] },
- { key: "Healthcare", label: "Healthcare and social services occupations（医疗/社工）", aliases: ["healthcare and social services occupations","healthcare occupations","healthcare"] },
- { key: "Education", label: "Education occupations（教育）", aliases: ["education occupations","education"] }
- ];
+  const TARGETS = [
+    { key: "Canadian Experience Class", label: "Canadian Experience Class（CEC）", aliases: ["canadian experience class","cec"] },
+    { key: "French", label: "French-Language proficiency（法语）", aliases: ["french language proficiency","french-language proficiency","french-language","french"] },
+    { key: "Healthcare", label: "Healthcare and social services occupations（医疗/社工）", aliases: ["healthcare and social services occupations","healthcare occupations","healthcare"] },
+    { key: "Education", label: "Education occupations（教育）", aliases: ["education occupations","education"] }
+  ];
 
- const elLoading = document.getElementById("eeLatestLoading");
- const elError = document.getElementById("eeLatestError");
- const elTable = document.getElementById("eeLatestTable");
- const elTbody = document.getElementById("eeLatestTbody");
- const elMeta = document.getElementById("eeLatestMeta");
+  const elLoading = document.getElementById("eeLatestLoading");
+  const elError = document.getElementById("eeLatestError");
+  const elTable = document.getElementById("eeLatestTable");
+  const elTbody = document.getElementById("eeLatestTbody");
+  const elMeta = document.getElementById("eeLatestMeta");
 
- if(!elLoading || !elError || !elTable || !elTbody || !elMeta) return;
+  if(!elLoading || !elError || !elTable || !elTbody || !elMeta) return;
 
- function showError(msg){
- elLoading.style.display = "none";
- elTable.style.display = "none";
- elError.style.display = "block";
- elError.textContent = msg;
- elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a>';
- }
+  function showError(msg){
+    elLoading.style.display = "none";
+    elTable.style.display = "none";
+    elError.style.display = "block";
+    elError.textContent = msg;
+    elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a>';
+  }
 
- function safeText(v){
- return (v === null || v === undefined) ? "" : String(v);
- }
+  function safeText(v){
+    return (v === null || v === undefined) ? "" : String(v);
+  }
 
- function normalize(s){
- return safeText(s).toLowerCase().replace(/\s+/g," ").trim();
- }
+  function normalize(s){
+    return safeText(s).toLowerCase().replace(/\s+/g," ").trim();
+  }
 
- function parseDateKey(d){
- // expects YYYY-MM-DD
- const m = safeText(d).match(/^(\d{4})-(\d{2})-(\d{2})$/);
- if(!m) return 0;
- return Number(m[1]+m[2]+m[3]);
- }
+  function parseDateKey(d){
+    // expects YYYY-MM-DD
+    const m = safeText(d).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if(!m) return 0;
+    return Number(m[1]+m[2]+m[3]);
+  }
 
- async function directFetch(url){
- const res = await fetch(url, { cache: "no-store" });
- if(!res.ok) throw new Error("HTTP " + res.status);
- return res.json();
- }
+  async function directFetch(url){
+    const res = await fetch(url, { cache: "no-store" });
+    if(!res.ok) throw new Error("HTTP " + res.status);
+    return res.json();
+  }
 
- async function proxyFetch(url){
- // Common "proxy" patterns:
- // 1) /?url=<encoded>
- // 2) /proxy?url=<encoded>
- // We'll try both.
- const u1 = PROXY_BASE + "?url=" + encodeURIComponent(url);
- try {
- return await directFetch(u1);
- } catch(e){
- const u2 = PROXY_BASE.replace(/\/$/,"") + "/proxy?url=" + encodeURIComponent(url);
- return await directFetch(u2);
- }
- }
+  async function proxyFetch(url){
+    // Common "proxy" patterns:
+    // 1) /?url=<encoded>
+    // 2) /proxy?url=<encoded>
+    // We'll try both.
+    const u1 = PROXY_BASE + "?url=" + encodeURIComponent(url);
+    try {
+      return await directFetch(u1);
+    } catch(e){
+      const u2 = PROXY_BASE.replace(/\/$/,"") + "/proxy?url=" + encodeURIComponent(url);
+      return await directFetch(u2);
+    }
+  }
 
- async function fetchJsonWithFallback(){
- let lastErr = null;
+  async function fetchJsonWithFallback(){
+    let lastErr = null;
 
- for(const url of JSON_CANDIDATES){
- try { return await directFetch(url); } catch(e){ lastErr = e; }
- try { return await proxyFetch(url); } catch(e){ lastErr = e; }
- }
- throw lastErr || new Error("Unable to fetch JSON");
- }
+    for(const url of JSON_CANDIDATES){
+      try { return await directFetch(url); } catch(e){ lastErr = e; }
+      try { return await proxyFetch(url); } catch(e){ lastErr = e; }
+    }
+    throw lastErr || new Error("Unable to fetch JSON");
+  }
 
- function pickLatest(rounds, target){
- const candidates = [];
- for(const r of rounds){
- const name = normalize(r.drawName || r.roundType || r.round_name);
- const date = safeText(r.drawDate || r.date || r.draw_date);
- const crs = r.drawCRS ?? r.drawCutOff ?? r.crs ?? r.draw_cutoff;
+  function pickLatest(rounds, target){
+    const candidates = [];
+    for(const r of rounds){
+      const name = normalize(r.drawName || r.roundType || r.round_name);
+      const date = safeText(r.drawDate || r.date || r.draw_date);
+      const crs = r.drawCRS ?? r.drawCutOff ?? r.crs ?? r.draw_cutoff;
 
- const matches = target.aliases.some(a => name.includes(normalize(a)));
- if(matches && date){
- candidates.push({ date, crs: safeText(crs), raw: r });
- }
- }
- candidates.sort((a,b)=>parseDateKey(b.date)-parseDateKey(a.date));
- return candidates[0] || null;
- }
+      const matches = target.aliases.some(a => name.includes(normalize(a)));
+      if(matches && date){
+        candidates.push({ date, crs: safeText(crs), raw: r });
+      }
+    }
+    candidates.sort((a,b)=>parseDateKey(b.date)-parseDateKey(a.date));
+    return candidates[0] || null;
+  }
 
- 
- function render(rows, histories){
- elLoading.style.display = "none";
- elError.style.display = "none";
- elTable.style.display = "table";
+  function render(rows){
+    elLoading.style.display = "none";
+    elError.style.display = "none";
+    elTable.style.display = "table";
 
- elTbody.innerHTML = rows.map(r => {
- const date = r ? safeText(r.date) : "-";
- const crs = r ? (safeText(r.crs) || "-") : "-";
- const label = r ? r.label : "-";
- const key = r ? safeText(r.key) : "";
- const hasHistory = histories && histories[key] && histories[key].length;
- const catCell = hasHistory
- ? '<span class="eeCatBtn" tabindex="0" role="button" data-ee-key="'+key+'" aria-label="查看 '+label+' 过往5次分数">'+label+'</span>'
- : label;
- return "<tr><td>"+catCell+"</td><td>"+date+"</td><td>"+crs+"</td></tr>";
- }).join("");
+    elTbody.innerHTML = rows.map(r => {
+      const date = r ? safeText(r.date) : "-";
+      const crs = r ? (safeText(r.crs) || "-") : "-";
+      const label = r ? r.label : "-";
+      return "<tr><td>"+label+"</td><td>"+date+"</td><td>"+crs+"</td></tr>";
+    }).join("");
 
- const now = new Date();
- const stamp = now.toLocaleString("zh-CN", { hour12:false });
- elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a> 更新于 ' + stamp;
+    const now = new Date();
+    const stamp = now.toLocaleString("zh-CN", { hour12:false });
+    elMeta.innerHTML = '数据来源：<a href="'+OFFICIAL_ROUNDS_PAGE+'" target="_blank" rel="noopener">IRCC Express Entry rounds（官方）</a> · 更新于 ' + stamp;
+  }
 
- // Bind chart popover events
- bindChartInteractions(histories || {});
- }
+  async function init(){
+    try{
+      const data = await fetchJsonWithFallback();
+      const rounds = Array.isArray(data.rounds) ? data.rounds : (Array.isArray(data) ? data : []);
+      if(!rounds.length) throw new Error("JSON does not contain rounds[]");
 
+      const rows = TARGETS.map(t => {
+        const latest = pickLatest(rounds, t);
+        return latest ? { label: t.label, date: latest.date, crs: latest.crs } : { label: t.label, date: "-", crs: "-" };
+      });
 
- // --- History chart popover (last 5 draws) ---
- const popover = document.getElementById("eeChartPopover");
- const popTitle = document.getElementById("eeChartTitle");
- const popClose = document.getElementById("eeChartClose");
- const popCanvas = document.getElementById("eeChartCanvas");
- const popCtx = popCanvas ? popCanvas.getContext("2d") : null;
- let currentHistories = {};
- let lastAnchorRect = null;
+      render(rows);
+    } catch(err){
+      showError("抓取失败：浏览器可能拦截了跨域请求（CORS），或 IRCC 更新了数据地址。你可以把 IRCC JSON 地址转发到你的 worker 并开启 CORS 解决。错误信息：" + (err && err.message ? err.message : String(err)));
+    }
+  }
 
- function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
-
- function parseCrsNumber(v){
- const n = Number(String(v).replace(/[^\d.]/g,""));
- return Number.isFinite(n) ? n : null;
- }
-
- function formatShortDate(iso){
- // YYYY-MM-DD -> MM/DD
- const m = safeText(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
- if(!m) return safeText(iso);
- return m[2] + "/" + m[3];
- }
-
- function drawLineChart(points){
- if(!popCtx || !popCanvas) return;
-
- // points are in chronological order (old -> new)
- const ctx = popCtx;
- const w = popCanvas.width;
- const h = popCanvas.height;
-
- ctx.clearRect(0,0,w,h);
-
- const pad = {l:34,r:10,t:14,b:28};
- const plotW = w - pad.l - pad.r;
- const plotH = h - pad.t - pad.b;
-
- // background grid
- ctx.globalAlpha = 1;
- ctx.lineWidth = 1;
- ctx.strokeStyle = "#eef2f7";
- for(let i=0;i<=4;i++){
- const y = pad.t + (plotH * i/4);
- ctx.beginPath();
- ctx.moveTo(pad.l, y);
- ctx.lineTo(pad.l+plotW, y);
- ctx.stroke();
- }
-
- const nums = points.map(p=>p.crsNum).filter(n=>n!==null);
- if(!nums.length){
- ctx.fillStyle = "#6b7280";
- ctx.font = "12px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial";
- ctx.fillText("暂无可用分数数据", pad.l, pad.t + 20);
- return;
- }
-
- let yMin = Math.min(...nums);
- let yMax = Math.max(...nums);
- if(yMin === yMax){
- yMin -= 5; yMax += 5;
- } else {
- const range = yMax - yMin;
- yMin = yMin - Math.ceil(range * 0.12);
- yMax = yMax + Math.ceil(range * 0.12);
- }
-
- function xAt(i){
- const n = points.length;
- if(n===1) return pad.l + plotW/2;
- return pad.l + (plotW * i/(n-1));
- }
- function yAt(val){
- return pad.t + (yMax - val) * plotH / (yMax - yMin);
- }
-
- // y axis labels (min/max)
- ctx.fillStyle = "#6b7280";
- ctx.font = "11px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial";
- ctx.textAlign = "right";
- ctx.textBaseline = "middle";
- ctx.fillText(String(Math.round(yMax)), pad.l - 6, pad.t);
- ctx.fillText(String(Math.round(yMin)), pad.l - 6, pad.t + plotH);
-
- // line
- ctx.strokeStyle = "#175cd3";
- ctx.lineWidth = 2;
- ctx.beginPath();
- points.forEach((p,i)=>{
- const x = xAt(i);
- const y = (p.crsNum===null) ? null : yAt(p.crsNum);
- if(y===null) return;
- if(i===0 || points[i-1].crsNum===null) ctx.moveTo(x,y);
- else ctx.lineTo(x,y);
- });
- ctx.stroke();
-
- // points + labels
- ctx.fillStyle = "#175cd3";
- ctx.textAlign = "center";
- ctx.textBaseline = "bottom";
- points.forEach((p,i)=>{
- const x = xAt(i);
- if(p.crsNum===null) return;
- const y = yAt(p.crsNum);
- ctx.beginPath();
- ctx.arc(x,y,3.2,0,Math.PI*2);
- ctx.fill();
-
- ctx.fillStyle = "#111827";
- ctx.font = "11px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial";
- ctx.fillText(String(p.crsNum), x, y-6);
- ctx.fillStyle = "#175cd3";
- });
-
- // x labels
- ctx.fillStyle = "#6b7280";
- ctx.font = "11px -apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Arial";
- ctx.textBaseline = "top";
- points.forEach((p,i)=>{
- const x = xAt(i);
- ctx.fillText(formatShortDate(p.date), x, pad.t + plotH + 6);
- });
- }
-
- function positionPopover(anchorRect){
- if(!popover || !anchorRect) return;
- const margin = 10;
- const vw = window.innerWidth;
- const vh = window.innerHeight;
-
- const popW = popover.offsetWidth || 360;
- const popH = popover.offsetHeight || 220;
-
- // Prefer below the anchor; otherwise above.
- let left = anchorRect.left;
- left = clamp(left, margin, vw - popW - margin);
-
- let top = anchorRect.bottom + 10;
- if(top + popH + margin > vh){
- top = anchorRect.top - popH - 10;
- }
- top = clamp(top, margin, vh - popH - margin);
-
- popover.style.left = Math.round(left) + "px";
- popover.style.top = Math.round(top) + "px";
- }
-
- function openPopover(anchorEl, key){
- if(!popover) return;
- const list = currentHistories[key] || [];
- if(!list.length) return;
-
- const label = (anchorEl && anchorEl.textContent) ? anchorEl.textContent : "历史分数";
- popTitle.textContent = label + " 历史分数";
-
- // Ensure chronological order (old -> new)
- const points = (list.slice().reverse()).map(x => ({
- date: x.date,
- crs: x.crs,
- crsNum: parseCrsNumber(x.crs)
- }));
-
- drawLineChart(points);
-
- popover.style.display = "block";
- popover.setAttribute("aria-hidden","false");
-
- lastAnchorRect = anchorEl.getBoundingClientRect();
- positionPopover(lastAnchorRect);
- }
-
- function closePopover(){
- if(!popover) return;
- popover.style.display = "none";
- popover.setAttribute("aria-hidden","true");
- }
-
- function bindChartInteractions(histories){
- currentHistories = histories || {};
- closePopover();
-
- const buttons = elTbody.querySelectorAll(".eeCatBtn");
- buttons.forEach(btn=>{
- btn.addEventListener("click", (e)=>{
- e.preventDefault();
- const key = btn.getAttribute("data-ee-key") || "";
- openPopover(btn, key);
- });
- btn.addEventListener("keydown", (e)=>{
- if(e.key === "Enter" || e.key === " "){
- e.preventDefault();
- const key = btn.getAttribute("data-ee-key") || "";
- openPopover(btn, key);
- }
- });
- });
- }
-
- if(popClose){
- popClose.addEventListener("click", (e)=>{ e.preventDefault(); closePopover(); });
- }
- document.addEventListener("click", (e)=>{
- if(!popover || popover.style.display !== "block") return;
- const t = e.target;
- if(popover.contains(t)) return;
- if(t && t.classList && t.classList.contains("eeCatBtn")) return;
- closePopover();
- });
- window.addEventListener("resize", ()=>{
- if(!popover || popover.style.display !== "block" || !lastAnchorRect) return;
- positionPopover(lastAnchorRect);
- });
-
- async function init(){
- try{
- const data = await fetchJsonWithFallback();
- const rounds = Array.isArray(data.rounds) ? data.rounds : (Array.isArray(data) ? data : []);
- if(!rounds.length) throw new Error("JSON does not contain rounds[]");
-
- const histories = {};
- const rows = TARGETS.map(t => {
- // Build history (newest -> oldest), keep last 5
- const history = [];
- for(const r of rounds){
- const name = normalize(r.drawName || r.roundType || r.round_name);
- const date = safeText(r.drawDate || r.date || r.draw_date);
- const crs = r.drawCRS ?? r.drawCutOff ?? r.crs ?? r.draw_cutoff;
-
- const matches = t.aliases.some(a => name.includes(normalize(a)));
- if(matches && date){
- history.push({ date, crs: safeText(crs) });
- }
- }
- history.sort((a,b)=>parseDateKey(b.date)-parseDateKey(a.date));
- histories[t.key] = history.slice(0,5);
-
- const latest = histories[t.key][0] || null;
- return latest ? { key: t.key, label: t.label, date: latest.date, crs: latest.crs } : { key: t.key, label: t.label, date: "-", crs: "-" };
- });
-
- render(rows, histories);
- } catch(err){
- showError("抓取失败：浏览器可能拦截了跨域请求（CORS），或 IRCC 更新了数据地址。你可以把 IRCC JSON 地址转发到你的 worker 并开启 CORS 解决。错误信息：" + (err && err.message ? err.message : String(err)));
- }
- }
-
- if(document.readyState === "loading"){
- document.addEventListener("DOMContentLoaded", init);
- } else {
- init();
- }
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
+  }
 })();
-</script></body></html>
+</script>
+
+</body>
+</html>
